@@ -5,15 +5,17 @@ import axios from "axios";
 
 const ProjectsSection = () => {
   const [projects, setProjects] = useState([]);
+  const apiURL = import.meta.env.VITE_API_URL;
 
   const getProjects = async () => {
     try {
-      const response = await fetch("/api/projects");
-      const data = await response.json();
-      setProjects(data);
-      console.error(`projects data is>>>:::::${response}`);
+      const response = await axios.get(`${apiURL}/projects`);
+      if (response) {
+        console.log("projects data is>>>:::::", response.data);
+        setProjects(response.data);
+      }
     } catch (error) {
-      console.error("Failed to fetch projectsss:", error);
+      console.error("Failed to fetch projects:", error);
     }
   };
 

@@ -19,10 +19,11 @@ import ProjectsSection from "../components/ProjectsSection";
 
 function Home() {
   const [profile, setProfile] = useState(null);
+  const apiURL = import.meta.env.VITE_API_URL;
 
   const getProfile = async () => {
     try {
-      const response = await axios.get("/api/profile");
+      const response = await axios.get(`${apiURL}/profile`);
       if (response) {
         console.log("the data is >>>>", response.data);
         setProfile(response.data); // save data to state
@@ -136,7 +137,7 @@ function Home() {
                   icon: "FaEnvelope",
                 },
                 {
-                  href: `${profile?.socialMedia?.linketwitterdin}`,
+                  href: `${profile?.socialMedia?.twitter}`,
                   icon: "FaXTwitter",
                 },
               ].map((link, index) => (
