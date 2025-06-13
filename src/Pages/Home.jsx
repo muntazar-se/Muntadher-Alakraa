@@ -13,16 +13,21 @@ import {
 
 import SkillsSection from "../components/SkillsSection";
 import ProjectsSection from "../components/ProjectsSection";
+import LoadingComponent from "../components/LoadingComponent";
 
 // Inside your Home component's return:
 <ProjectsSection />;
 
 function Home() {
   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const apiURL = import.meta.env.VITE_API_URL;
 
   const getProfile = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const response = await axios.get(`${apiURL}/profile`);
       if (response) {
         console.log("the data is >>>>", response.data);
@@ -30,12 +35,38 @@ function Home() {
       }
     } catch (error) {
       console.log("from home Error fetching profile:", error);
+      setError("Failed to load profile data");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getProfile();
   }, []);
+
+  // Show loading component while data is being fetched
+  if (loading) {
+    return <LoadingComponent />;
+  }
+
+  // Show error message if there's an error
+  if (error) {
+    return (
+      <div className="flex justify-center items-center w-full h-screen bg-[#0f1624]">
+        <div className="text-center">
+          <h2 className="text-2xl font-light text-white mb-4">Error Loading Portfolio</h2>
+          <p className="text-gray-400 mb-6">{error}</p>
+          <button
+            onClick={getProfile}
+            className="px-6 py-2 bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg hover:opacity-80 transition-opacity"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // const [projects, setProjects] = useState(null);
   // const getProjects = async () => {
