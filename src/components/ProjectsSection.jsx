@@ -89,14 +89,14 @@ const ProjectsSection = () => {
               />
 
               <motion.div
-                className="h-[190px] w-[290px] -mt-15 mb-4 overflow-hidden rounded-lg"
+                className="h-[190px] w-[290px] -mt-15 mb-4 overflow-hidden rounded-lg flex items-center justify-center"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
                 <motion.img
                   src={project.image}
                   alt={project.name}
-                  className="w-full h-full object-cover"
+                  className="max-w-full max-h-full object-contain"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.5 }}
                 />
@@ -131,7 +131,7 @@ const ProjectsSection = () => {
                     href={project.liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative h-10 rounded-4xl w-fit px-6 overflow-hidden group"
+                    className="relative h-10 rounded-4xl w-fit px-6 overflow-hidden group flex items-center justify-center"
                     style={{
                       background:
                         "linear-gradient(270deg, #13ADC7, #6978D1, #945DD6) border-box",
@@ -144,7 +144,7 @@ const ProjectsSection = () => {
                       initial={{ opacity: 0 }}
                       whileHover={{ opacity: 0.2 }}
                     />
-                    Live Preview
+                    <span className="relative z-10">Live Preview</span>
                   </motion.a>
                 )}
 
@@ -164,6 +164,7 @@ const ProjectsSection = () => {
                     <motion.div
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.5 }}
+                      className="group-hover:rotate-180 transition-transform duration-500"
                     >
                       <FaGithub
                         size={30}
