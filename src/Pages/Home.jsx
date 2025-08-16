@@ -14,6 +14,7 @@ import {
 import SkillsSection from "../components/SkillsSection";
 import ProjectsSection from "../components/ProjectsSection";
 import LoadingComponent from "../components/LoadingComponent";
+import RenderServerNotice from "../components/RenderServerNotice";
 
 // Inside your Home component's return:
 <ProjectsSection />;
@@ -47,7 +48,12 @@ function Home() {
 
   // Show loading component while data is being fetched
   if (loading) {
-    return <LoadingComponent />;
+    return (
+      <>
+        <RenderServerNotice isVisible={true} />
+        <LoadingComponent />
+      </>
+    );
   }
 
   // Show error message if there's an error
@@ -86,9 +92,10 @@ function Home() {
   // }, []);
 
   return (
-    <div className="flex justify-center w-full">
-      <div className="main-container max-w-6xl w-full ">
-        <div className="px-4 py-4 text-white">
+    <>
+      <div className="flex justify-center w-full">
+        <div className="main-container max-w-6xl w-full ">
+          <div className="px-4 py-4 text-white">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -653,6 +660,7 @@ function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
